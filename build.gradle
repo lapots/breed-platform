@@ -17,5 +17,6 @@ run {
 dependencies {
     compile("org.hibernate:hibernate-core:5.2.10.Final")
     compile("com.h2database:h2:1.4.196")
+    compile("com.mchange:c3p0:0.9.5.2")
     compileOnly('org.projectlombok:lombok:1.16.16')
 }

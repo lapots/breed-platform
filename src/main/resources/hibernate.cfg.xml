@@ -17,6 +17,7 @@
 
         <property name="hibernate.default_schema">public</property>
 
+        <property name="c3p0.timeout">10</property>
         <!-- persistence objects -->
         <mapping class="com.lapots.breed.platform.core.MainFemaleCharacter"/>
     </session-factory>

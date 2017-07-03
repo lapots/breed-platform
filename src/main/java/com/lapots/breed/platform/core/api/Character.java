@@ -12,7 +12,7 @@ public @Data class Character {
     @Id
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy="increment")
-    private String id;
+    private Integer id;
     private String name;
     private int age;
     private String race;
