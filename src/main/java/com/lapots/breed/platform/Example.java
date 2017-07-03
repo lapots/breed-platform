@@ -1,7 +1,6 @@
 package com.lapots.breed.platform;
 
 import com.lapots.breed.platform.core.MainFemaleCharacter;
-import com.lapots.breed.platform.core.api.Character;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -27,6 +26,7 @@ public class Example {
 
             List<MainFemaleCharacter> femaleCharacters = session.createQuery(PLAYERS,
                     MainFemaleCharacter.class).list();
+            System.out.println("List of female characters: " + femaleCharacters);
 
             session.getTransaction().commit();
             session.close();

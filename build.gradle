@@ -10,6 +10,10 @@ repositories {
     mavenCentral()
 }
 
+run {
+    standardInput = System.in
+}
+
 dependencies {
     compile("org.hibernate:hibernate-core:5.2.10.Final")
     compile("com.h2database:h2:1.4.196")
