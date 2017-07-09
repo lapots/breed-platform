@@ -19,7 +19,7 @@ public class GroovyEmbeddedRunner {
         try {
             Class<?> gClazz = groovyClassLoader.loadClass("com.lapots.breed.platform.core.util.RacesLoader");
             Method method = gClazz.getMethod("loadRaces", String.class);
-            races = (List<Race>) method.invoke(null, "races.json");
+            races = (List<Race>) method.invoke(null, "/breed/races.json");
         } catch (ClassNotFoundException | IllegalAccessException |
                 NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();

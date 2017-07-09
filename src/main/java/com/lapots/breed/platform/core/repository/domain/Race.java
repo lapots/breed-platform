@@ -1,16 +1,14 @@
 package com.lapots.breed.platform.core.repository.domain;
 
+import com.lapots.breed.platform.core.repository.domain.api.UidNamedObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.UUID;
 
 @Entity
 @Table(name="race")
-public class Race {
-    @Id
-    @GeneratedValue
-    private UUID id;
-    private String name;
+@EqualsAndHashCode(callSuper = true)
+public @Data class Race extends UidNamedObject {
 }
