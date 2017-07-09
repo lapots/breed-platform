@@ -1,27 +1,25 @@
 package com.lapots.breed.platform;
 
-import com.lapots.breed.platform.core.MainFemaleCharacter;
 import com.lapots.breed.platform.core.repository.HibernateContext;
-import com.lapots.breed.platform.core.repository.MainFemaleCharacterRepository;
-import com.lapots.breed.platform.core.repository.api.IMainFemaleCharacterRepository;
+import com.lapots.breed.platform.core.repository.domain.Race;
+import com.lapots.breed.platform.core.util.GroovyEmbeddedRunner;
+import org.hibernate.Session;
+
+import java.util.List;
 
 public class Example {
 
-    private static final String PLAYERS = "from player_parameters";
-
     public static void main(String[] args) {
-        IMainFemaleCharacterRepository characterRepository = new MainFemaleCharacterRepository();
-        System.out.println("List of female characters: " + characterRepository.listCharacters());
+        List<Race> fileRaces = GroovyEmbeddedRunner.generateRacesList();
+        System.out.println("Loaded races: " + fileRaces);
+        try (Session session = HibernateContext.INSTANCE.getSession()) {
+            session.beginTransaction();
 
-        MainFemaleCharacter femaleCharacter = new MainFemaleCharacter();
-        femaleCharacter.setName("Jessica");
-        femaleCharacter.setPregnant(false);
-        femaleCharacter.setAge(17);
-        femaleCharacter.setRace("human");
-        characterRepository.saveCharacter(femaleCharacter);
+            List<Race> races = session.createQuery("from Race", Race.class).list();
+            System.out.println("All available races: " + races);
 
-        System.out.println("List of female characters: " + characterRepository.listCharacters());
-
+            session.getTransaction().commit();
+        }
         HibernateContext.INSTANCE.closeHibernateContext();
     }
 }

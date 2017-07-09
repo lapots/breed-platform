@@ -1,18 +1,10 @@
 {
   "races": [
     {
-      "id": "ORC",
-      "pussy-affects": {
-        "sizeChange": 0.02,
-        "qualityChange": 0.01
-      }
+      "name": "ORC"
     },
     {
-      "id": "DRAGON",
-      "pussy-affects": {
-        "sizeChange": 0.8,
-        "qualityChange": 0.9
-      }
+      "name": "HUMAN"
     }
   ]
 }

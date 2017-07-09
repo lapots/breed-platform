@@ -19,6 +19,9 @@
 
         <property name="c3p0.timeout">10</property>
         <!-- persistence objects -->
-        <mapping class="com.lapots.breed.platform.core.MainFemaleCharacter"/>
+        <mapping class="com.lapots.breed.platform.core.repository.domain.MainFemaleCharacter"/>
+        <mapping class="com.lapots.breed.platform.core.repository.domain.CopulationRegistry"/>
+        <mapping class="com.lapots.breed.platform.core.repository.domain.NPCharacter"/>
+        <mapping class="com.lapots.breed.platform.core.repository.domain.Race"/>
     </session-factory>
 </hibernate-configuration>
