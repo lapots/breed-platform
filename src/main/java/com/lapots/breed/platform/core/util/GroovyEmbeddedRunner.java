@@ -1,5 +1,6 @@
 package com.lapots.breed.platform.core.util;
 
+import com.lapots.breed.platform.core.repository.domain.NPCharacter;
 import com.lapots.breed.platform.core.repository.domain.Race;
 import groovy.lang.GroovyClassLoader;
 
@@ -17,9 +18,9 @@ public class GroovyEmbeddedRunner {
 
         List<Race> races = null;
         try {
-            Class<?> gClazz = groovyClassLoader.loadClass("com.lapots.breed.platform.core.util.RacesLoader");
+            Class<?> gClazz = groovyClassLoader.loadClass("com.lapots.breed.platform.core.util.DataLoader");
             Method method = gClazz.getMethod("loadRaces", String.class);
-            races = (List<Race>) method.invoke(null, "/breed/races.json");
+            races = (List<Race>) method.invoke(null, "/breed/data.json");
         } catch (ClassNotFoundException | IllegalAccessException |
                 NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
@@ -27,4 +28,20 @@ public class GroovyEmbeddedRunner {
         return races == null ? Collections.emptyList() : races;
     }
 
+    @SuppressWarnings("unchecked")
+    public static List<NPCharacter> generateNPCList() {
+        ClassLoader parent = GroovyEmbeddedRunner.class.getClassLoader();
+        GroovyClassLoader groovyClassLoader = new GroovyClassLoader(parent);
+
+        List<NPCharacter> npc = null;
+        try {
+            Class<?> gClazz = groovyClassLoader.loadClass("com.lapots.breed.platform.core.util.DataLoader");
+            Method method = gClazz.getMethod("loadNpc", String.class);
+            npc = (List<NPCharacter>) method.invoke(null, "/breed/data.json");
+        } catch (ClassNotFoundException | IllegalAccessException |
+                NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return npc == null ? Collections.emptyList() : npc;
+    }
 }

@@ -1,38 +1,38 @@
 package com.lapots.breed.platform.core.repository.impl;
 
 import com.lapots.breed.platform.core.repository.HibernateContext;
-import com.lapots.breed.platform.core.repository.domain.Race;
+import com.lapots.breed.platform.core.repository.domain.NPCharacter;
 import org.hibernate.Session;
 
 import java.util.Collections;
 import java.util.List;
 
-public class RacesRepository implements IRacesRepository {
+public class NpcRepository implements INpcRepository {
     @Override
-    public void insertRacesBatch(List<Race> batch) {
+    public void insertNpcBatch(List<NPCharacter> npcs) {
         try (Session session = HibernateContext.INSTANCE.getSession()) {
             session.beginTransaction();
-            batch.forEach(session::save);
+            npcs.forEach(session::save);
             session.getTransaction().commit();
         }
     }
 
     @Override
-    public List<Race> readRaces() {
-        List<Race> races = null;
+    public List<NPCharacter> readNpcs() {
+        List<NPCharacter> npcs = null;
         try (Session session = HibernateContext.INSTANCE.getSession()) {
             session.beginTransaction();
-            races = session.createQuery("from Race", Race.class).list();
+            npcs = session.createQuery("from NPCharacter", NPCharacter.class).list();
             session.getTransaction().commit();
         }
-        return null == races ? Collections.emptyList() : races;
+        return null == npcs ? Collections.emptyList() : npcs;
     }
 
     @Override
-    public void insertRace(Race race) {
+    public void insertNpc(NPCharacter npc) {
         try (Session session = HibernateContext.INSTANCE.getSession()) {
             session.beginTransaction();
-            session.save(race);
+            session.save(npc);
             session.getTransaction().commit();
         }
     }
