@@ -8,6 +8,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="main_female_character")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper=true)
 public @Data class MainFemaleCharacter extends BasicCharacter {
 }

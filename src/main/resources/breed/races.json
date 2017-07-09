@@ -5,6 +5,9 @@
     },
     {
       "name": "HUMAN"
+    },
+    {
+      "name": "ELF"
     }
   ]
 }

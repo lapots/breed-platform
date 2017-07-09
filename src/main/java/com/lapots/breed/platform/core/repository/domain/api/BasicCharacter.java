@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
 @MappedSuperclass
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper=true)
 public @Data class BasicCharacter extends UidNamedObject {
     @OneToOne
     private Race race;

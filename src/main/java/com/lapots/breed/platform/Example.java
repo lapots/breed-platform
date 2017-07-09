@@ -1,25 +1,20 @@
 package com.lapots.breed.platform;
 
 import com.lapots.breed.platform.core.repository.HibernateContext;
-import com.lapots.breed.platform.core.repository.domain.Race;
+import com.lapots.breed.platform.core.repository.impl.IRacesRepository;
+import com.lapots.breed.platform.core.repository.impl.RacesRepository;
 import com.lapots.breed.platform.core.util.GroovyEmbeddedRunner;
-import org.hibernate.Session;
-
-import java.util.List;
 
 public class Example {
+    private static IRacesRepository racesRepository = new RacesRepository();
+
+    private static void prepareDb() {
+        racesRepository.insertRacesBatch(GroovyEmbeddedRunner.generateRacesList());
+    }
 
     public static void main(String[] args) {
-        List<Race> fileRaces = GroovyEmbeddedRunner.generateRacesList();
-        System.out.println("Loaded races: " + fileRaces);
-        try (Session session = HibernateContext.INSTANCE.getSession()) {
-            session.beginTransaction();
-
-            List<Race> races = session.createQuery("from Race", Race.class).list();
-            System.out.println("All available races: " + races);
-
-            session.getTransaction().commit();
-        }
+        prepareDb();
+        System.out.println("Available races: " + racesRepository.readRaces());
         HibernateContext.INSTANCE.closeHibernateContext();
     }
 }
