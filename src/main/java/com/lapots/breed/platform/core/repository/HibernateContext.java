@@ -24,6 +24,7 @@ public enum HibernateContext {
     public Session getSession() {
         return sessionFactory.openSession();
     }
+
     public void closeHibernateContext() {
         StandardServiceRegistryBuilder.destroy(registry);
     }

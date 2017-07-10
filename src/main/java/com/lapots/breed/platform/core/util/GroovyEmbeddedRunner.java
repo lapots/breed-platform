@@ -13,35 +13,27 @@ public class GroovyEmbeddedRunner {
 
     @SuppressWarnings("unchecked")
     public static List<Race> generateRacesList() {
-        ClassLoader parent = GroovyEmbeddedRunner.class.getClassLoader();
-        GroovyClassLoader groovyClassLoader = new GroovyClassLoader(parent);
-
-        List<Race> races = null;
-        try {
-            Class<?> gClazz = groovyClassLoader.loadClass("com.lapots.breed.platform.core.util.DataLoader");
-            Method method = gClazz.getMethod("loadRaces", String.class);
-            races = (List<Race>) method.invoke(null, "/breed/data.json");
-        } catch (ClassNotFoundException | IllegalAccessException |
-                NoSuchMethodException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return races == null ? Collections.emptyList() : races;
+        return generateJsonList("loadRaces");
     }
 
     @SuppressWarnings("unchecked")
     public static List<NPCharacter> generateNPCList() {
+        return generateJsonList("loadNpc");
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> List<T> generateJsonList(String methodName) {
         ClassLoader parent = GroovyEmbeddedRunner.class.getClassLoader();
         GroovyClassLoader groovyClassLoader = new GroovyClassLoader(parent);
-
-        List<NPCharacter> npc = null;
+        List<T> items = null;
         try {
             Class<?> gClazz = groovyClassLoader.loadClass("com.lapots.breed.platform.core.util.DataLoader");
-            Method method = gClazz.getMethod("loadNpc", String.class);
-            npc = (List<NPCharacter>) method.invoke(null, "/breed/data.json");
+            Method method = gClazz.getMethod(methodName);
+            items = (List<T>) method.invoke(null);
         } catch (ClassNotFoundException | IllegalAccessException |
                 NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        return npc == null ? Collections.emptyList() : npc;
+        return items == null ? Collections.emptyList() : items;
     }
 }

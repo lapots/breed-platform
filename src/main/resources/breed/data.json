@@ -21,5 +21,13 @@
       "age"   : "26",
       "name"  : "Rz'Ul"
     }
+  ],
+  "mainCharacters": [
+    {
+      "id"    : "36461dd3-2bdb-42de-8e3d-b44e28696b1e",
+      "race"  : "HUMAN",
+      "age"   : "18",
+      "name"  : "Alisa"
+    }
   ]
 }
