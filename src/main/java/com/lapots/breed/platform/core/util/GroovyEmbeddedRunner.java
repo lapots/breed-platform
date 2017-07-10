@@ -1,8 +1,10 @@
 package com.lapots.breed.platform.core.util;
 
+import com.lapots.breed.platform.core.repository.domain.MainFemaleCharacter;
 import com.lapots.breed.platform.core.repository.domain.NPCharacter;
 import com.lapots.breed.platform.core.repository.domain.Race;
 import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,6 +21,22 @@ public class GroovyEmbeddedRunner {
     @SuppressWarnings("unchecked")
     public static List<NPCharacter> generateNPCList() {
         return generateJsonList("loadNpc");
+    }
+
+    public static <T> MainFemaleCharacter femaleCharacterBuilder(String name, T value, MainFemaleCharacter input) {
+        ClassLoader parent = GroovyEmbeddedRunner.class.getClassLoader();
+        GroovyClassLoader groovyClassLoader = new GroovyClassLoader(parent);
+        try {
+            Class<?> gClazz =
+                    groovyClassLoader.loadClass("com.lapots.breed.platform.core.util.MainFemaleCharacterBuilder");
+            Method method = gClazz.getMethod("setField");
+            Object[] args = {input, name, value};
+            return (MainFemaleCharacter) method.invoke(null, args);
+        } catch (ClassNotFoundException | IllegalAccessException |
+                NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @SuppressWarnings("unchecked")

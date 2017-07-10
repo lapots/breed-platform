@@ -14,9 +14,4 @@ public abstract class AbstractConsoleMenuEntry implements IConsoleInputHandler {
     public String getLabel() {
         return label;
     }
-
-    @Override
-    public void setLabel(String label) {
-        this.label = label;
-    }
 }
