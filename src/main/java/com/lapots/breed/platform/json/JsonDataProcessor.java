@@ -26,18 +26,14 @@ public class JsonDataProcessor {
                 if ("races".equals(listName) && "races".equals(reader.name())) {
                     result = (List<T>) processRaceData(reader);
                     break;
-                }
-
-                if ("npc".equals(listName) && "npc".equals(reader.name())) {
+                } else if ("npc".equals(listName) && "npc".equals(reader.name())) {
                     result = (List<T>) processNpcData(reader);
                     break;
-                }
-
-                if ("mainCharacters".equals(listName) && "npc".equals(reader.name())) {
+                } else if ("mainCharacters".equals(listName) && "npc".equals(reader.name())) {
                     result = (List<T>) processMainCharactersData(reader);
                     break;
-                }
-                reader.skipValue();
+                } else { reader.skipValue(); }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,6 +81,7 @@ public class JsonDataProcessor {
 
             }
             reader.endObject();
+            npcs.add(npc);
         }
         reader.endArray();
         return npcs;
@@ -109,6 +106,7 @@ public class JsonDataProcessor {
 
             }
             reader.endObject();
+            mainCharacters.add(fc);
         }
         reader.endArray();
         return mainCharacters;
