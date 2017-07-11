@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class ConsoleController {
     private static final String QUIT_CMD = "quit";
-    private static final String QUIT_CMD_MSG = "Press %s to EXIT";
+    private static final String QUIT_CMD_MSG = "Print [ %s ] to EXIT";
     private Map<String, IConsoleInputHandler> menuEntries = new LinkedHashMap<>();
     private Integer persistentEntryIndex = 0;
 
