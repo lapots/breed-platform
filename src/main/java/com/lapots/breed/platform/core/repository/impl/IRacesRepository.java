@@ -8,4 +8,5 @@ public interface IRacesRepository {
     void insertRacesBatch(List<Race> batch);
     List<Race> readRaces();
     void insertRace(Race race);
+    Race getRaceByName(String name);
 }

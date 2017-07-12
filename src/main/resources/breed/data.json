@@ -12,21 +12,32 @@
   ],
   "npc": [
     {
-      "race"  : "HUMAN",
-      "age"   : "25",
-      "name"  : "Jerome"
+      "race"    : "HUMAN",
+      "age"     : "25",
+      "name"    : "Jerome",
+      "gender"  : "MALE"
     },
     {
-      "race"  : "ORC",
-      "age"   : "26",
-      "name"  : "Rz'Ul"
+      "race"    : "ORC",
+      "age"     : "26",
+      "name"    : "Rz'Ul",
+      "gender"  : "MALE"
     }
   ],
   "mainCharacters": [
     {
-      "race"  : "HUMAN",
-      "age"   : "18",
-      "name"  : "Alisa"
+      "race"    : "HUMAN",
+      "age"     : "18",
+      "name"    : "Alisa",
+      "gender"  : "FEMALE"
+    }
+  ],
+  "genders": [
+    {
+      "name": "MALE"
+    },
+    {
+      "name": "FEMALE"
     }
   ]
 }

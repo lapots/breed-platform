@@ -3,6 +3,7 @@ package com.lapots.breed.platform.core.repository.impl;
 import com.lapots.breed.platform.core.repository.HibernateContext;
 import com.lapots.breed.platform.core.repository.domain.Race;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,5 +36,21 @@ public class RacesRepository implements IRacesRepository {
             session.save(race);
             session.getTransaction().commit();
         }
+    }
+
+    @Override
+    public Race getRaceByName(String name) {
+        Race dbRace = null;
+        try (Session session = HibernateContext.INSTANCE.getSession()) {
+            session.beginTransaction();
+
+            String hsql = "from Race where name= :name";
+            Query query = session.createQuery(hsql);
+            query.setParameter("name", name);
+            dbRace = (Race) query.uniqueResult();
+
+            session.getTransaction().commit();
+        }
+        return dbRace;
     }
 }

@@ -2,9 +2,7 @@ package com.lapots.breed.platform.console;
 
 import com.lapots.breed.platform.console.api.AbstractConsoleMenuEntry;
 import com.lapots.breed.platform.core.repository.domain.MainCharacter;
-import com.lapots.breed.platform.core.repository.domain.Race;
-import com.lapots.breed.platform.core.repository.impl.IMainCharacterRepository;
-import com.lapots.breed.platform.core.repository.impl.MainCharacterRepository;
+import com.lapots.breed.platform.core.repository.impl.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,11 +10,15 @@ import java.io.IOException;
 public class CharacterCreationConsoleMenuEntry extends AbstractConsoleMenuEntry {
 
     private IMainCharacterRepository characterRepository;
+    private IRacesRepository racesRepository;
+    private IGenderRepository genderRepository;
 
     public CharacterCreationConsoleMenuEntry(String label) {
         super(label);
 
         characterRepository = new MainCharacterRepository();
+        racesRepository = new RacesRepository();
+        genderRepository = new GenderRepository();
     }
 
     @Override
@@ -26,17 +28,22 @@ public class CharacterCreationConsoleMenuEntry extends AbstractConsoleMenuEntry 
 
         MainCharacter character = new MainCharacter();
         try {
-            System.out.print("Choose name:> "); // check uniqueness
+            System.out.print("Choose gender: >");
             String input = br.readLine();
+            character.setGender(genderRepository.getGenderByName(input));
+
+            System.out.print("Choose name:> ");
+            input = br.readLine();
             character.setName(input);
 
             System.out.print("Choose race:> ");
             input = br.readLine();
-            character.setRace(Race.valueOf(input));
+            character.setRace(racesRepository.getRaceByName(input));
 
-            System.out.print("Choose age: >");
+            System.out.print("Choose age:> ");
             input = br.readLine();
             character.setAge(Integer.valueOf(input));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

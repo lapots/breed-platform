@@ -1,8 +1,13 @@
 package com.lapots.breed.platform.json;
 
+import com.lapots.breed.platform.core.repository.domain.Gender;
 import com.lapots.breed.platform.core.repository.domain.MainCharacter;
 import com.lapots.breed.platform.core.repository.domain.NPCharacter;
 import com.lapots.breed.platform.core.repository.domain.Race;
+import com.lapots.breed.platform.core.repository.impl.GenderRepository;
+import com.lapots.breed.platform.core.repository.impl.IGenderRepository;
+import com.lapots.breed.platform.core.repository.impl.IRacesRepository;
+import com.lapots.breed.platform.core.repository.impl.RacesRepository;
 import com.owlike.genson.Genson;
 import com.owlike.genson.stream.ObjectReader;
 
@@ -12,6 +17,9 @@ import java.util.*;
 
 public class JsonDataProcessor {
     private static final String FILE = "/breed/data.json";
+
+    private static IRacesRepository racesRepository = new RacesRepository();
+    private static IGenderRepository genderRepository = new GenderRepository();
 
     @SuppressWarnings("unchecked")
     public static <T> List<T> readJsonList(String listName) {
@@ -31,6 +39,9 @@ public class JsonDataProcessor {
                     break;
                 } else if ("mainCharacters".equals(listName) && "mainCharacters".equals(reader.name())) {
                     result = (List<T>) processMainCharactersData(reader);
+                    break;
+                } else if ("genders".equals(listName) && "genders".equals(reader.name())) {
+                    result = (List<T>) processGenderData(reader);
                     break;
                 } else { reader.skipValue(); }
 
@@ -74,9 +85,15 @@ public class JsonDataProcessor {
             while (reader.hasNext()) {
                 reader.next();
 
-                if ("race".equals(reader.name())) { npc.setRace(Race.valueOf(reader.valueAsString())); }
-                else if ("age".equals(reader.name())) { npc.setAge(reader.valueAsInt()); }
-                else if ("name".equals(reader.name())) { npc.setName(reader.valueAsString()); }
+                if ("race".equals(reader.name())) {
+                    npc.setRace(racesRepository.getRaceByName(reader.valueAsString()));
+                } else if ("age".equals(reader.name())) {
+                    npc.setAge(reader.valueAsInt());
+                } else if ("name".equals(reader.name())) {
+                    npc.setName(reader.valueAsString());
+                } else if ("gender".equals(reader.name())) {
+                    npc.setGender(genderRepository.getGenderByName(reader.valueAsString()));
+                }
                 else { reader.skipValue(); }
 
             }
@@ -98,10 +115,17 @@ public class JsonDataProcessor {
             while (reader.hasNext()) {
                 reader.next();
 
-                if ("race".equals(reader.name())) { fc.setRace(Race.valueOf(reader.valueAsString())); }
-                else if ("age".equals(reader.name())) { fc.setAge(reader.valueAsInt()); }
-                else if ("name".equals(reader.name())) { fc.setName(reader.valueAsString()); }
-                else { reader.skipValue(); }
+                if ("race".equals(reader.name())) {
+                    fc.setRace(racesRepository.getRaceByName(reader.valueAsString()));
+                } else if ("age".equals(reader.name())) {
+                    fc.setAge(reader.valueAsInt());
+                } else if ("name".equals(reader.name())) {
+                    fc.setName(reader.valueAsString());
+                } else if ("gender".equals(reader.name())) {
+                    fc.setGender(genderRepository.getGenderByName(reader.valueAsString()));
+                } else {
+                    reader.skipValue();
+                }
 
             }
             reader.endObject();
@@ -109,5 +133,26 @@ public class JsonDataProcessor {
         }
         reader.endArray();
         return mainCharacters;
+    }
+
+    private static List<Gender> processGenderData(ObjectReader reader) {
+        List<Gender> genderList = new ArrayList<>();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            reader.next();
+
+            Gender gender = new Gender();
+            reader.beginObject();
+            while (reader.hasNext()) {
+                reader.next();
+
+                if ("name".equals(reader.name())) { gender.setName(reader.valueAsString()); }
+                else { reader.skipValue(); }
+            }
+            reader.endObject();
+            genderList.add(gender);
+        }
+        reader.endArray();
+        return genderList;
     }
 }
