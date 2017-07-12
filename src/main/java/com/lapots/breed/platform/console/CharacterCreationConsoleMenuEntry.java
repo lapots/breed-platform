@@ -2,23 +2,14 @@ package com.lapots.breed.platform.console;
 
 import com.lapots.breed.platform.console.api.AbstractConsoleMenuEntry;
 import com.lapots.breed.platform.core.repository.domain.MainCharacter;
-import com.lapots.breed.platform.core.repository.impl.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 public class CharacterCreationConsoleMenuEntry extends AbstractConsoleMenuEntry {
 
-    private IMainCharacterRepository characterRepository;
-    private IRacesRepository racesRepository;
-    private IGenderRepository genderRepository;
-
     public CharacterCreationConsoleMenuEntry(String label) {
         super(label);
-
-        characterRepository = new MainCharacterRepository();
-        racesRepository = new RacesRepository();
-        genderRepository = new GenderRepository();
     }
 
     @Override
@@ -30,7 +21,7 @@ public class CharacterCreationConsoleMenuEntry extends AbstractConsoleMenuEntry 
         try {
             System.out.print("Choose gender: >");
             String input = br.readLine();
-            character.setGender(genderRepository.getGenderByName(input));
+            //character.setGender(genderRepository.getGenderByName(input));
 
             System.out.print("Choose name:> ");
             input = br.readLine();
@@ -38,7 +29,7 @@ public class CharacterCreationConsoleMenuEntry extends AbstractConsoleMenuEntry 
 
             System.out.print("Choose race:> ");
             input = br.readLine();
-            character.setRace(racesRepository.getRaceByName(input));
+            //character.setRace(racesRepository.getRaceByName(input));
 
             System.out.print("Choose age:> ");
             input = br.readLine();
@@ -49,6 +40,6 @@ public class CharacterCreationConsoleMenuEntry extends AbstractConsoleMenuEntry 
         }
 
         System.out.println("Created character: " + character);
-        characterRepository.insertCharacter(character);
+        // characterRepository.insertCharacter(character);
     }
 }

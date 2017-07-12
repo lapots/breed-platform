@@ -5,8 +5,6 @@ import com.lapots.breed.platform.core.repository.domain.MainCharacter;
 import com.lapots.breed.platform.core.repository.domain.NPCharacter;
 import com.lapots.breed.platform.core.repository.domain.Race;
 import com.lapots.breed.platform.core.repository.impl.GenderRepository;
-import com.lapots.breed.platform.core.repository.impl.IGenderRepository;
-import com.lapots.breed.platform.core.repository.impl.IRacesRepository;
 import com.lapots.breed.platform.core.repository.impl.RacesRepository;
 import com.owlike.genson.Genson;
 import com.owlike.genson.stream.ObjectReader;
@@ -18,8 +16,8 @@ import java.util.*;
 public class JsonDataProcessor {
     private static final String FILE = "/breed/data.json";
 
-    private static IRacesRepository racesRepository = new RacesRepository();
-    private static IGenderRepository genderRepository = new GenderRepository();
+    private static RacesRepository racesRepository = new RacesRepository();
+    private static GenderRepository genderRepository = new GenderRepository();
 
     @SuppressWarnings("unchecked")
     public static <T> List<T> readJsonList(String listName) {
