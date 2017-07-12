@@ -12,11 +12,11 @@ public class CopulationRegistry {
     private NPCharacter npCharacter;
     @Id
     @OneToOne
-    private MainFemaleCharacter femCharacter;
+    private MainCharacter character;
     private int times;
 
     static class CopulationRegistryKey implements Serializable {
         private NPCharacter npCharacter;
-        private MainFemaleCharacter femCharacter;
+        private MainCharacter character;
     }
 }

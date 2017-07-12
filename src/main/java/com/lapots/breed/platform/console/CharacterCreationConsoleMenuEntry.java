@@ -1,15 +1,13 @@
 package com.lapots.breed.platform.console;
 
 import com.lapots.breed.platform.console.api.AbstractConsoleMenuEntry;
-import com.lapots.breed.platform.core.repository.domain.MainFemaleCharacter;
+import com.lapots.breed.platform.core.repository.domain.MainCharacter;
 import com.lapots.breed.platform.core.repository.domain.Race;
 import com.lapots.breed.platform.core.repository.impl.IMainCharacterRepository;
 import com.lapots.breed.platform.core.repository.impl.MainCharacterRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 public class CharacterCreationConsoleMenuEntry extends AbstractConsoleMenuEntry {
 
@@ -26,7 +24,7 @@ public class CharacterCreationConsoleMenuEntry extends AbstractConsoleMenuEntry 
         this.br = br;
         System.out.println("Create your character.");
 
-        MainFemaleCharacter character = new MainFemaleCharacter();
+        MainCharacter character = new MainCharacter();
         try {
             System.out.print("Choose name:> "); // check uniqueness
             String input = br.readLine();

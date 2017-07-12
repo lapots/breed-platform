@@ -1,5 +1,6 @@
 package com.lapots.breed.platform.core.repository.domain.api;
 
+import com.lapots.breed.platform.core.repository.domain.Gender;
 import com.lapots.breed.platform.core.repository.domain.Race;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,4 +16,6 @@ public @Data class BasicCharacter extends UidNamedObject {
     @OneToOne
     private Race race;
     private int age;
+    @OneToOne
+    private Gender gender;
 }

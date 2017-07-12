@@ -1,6 +1,6 @@
 package com.lapots.breed.platform.json;
 
-import com.lapots.breed.platform.core.repository.domain.MainFemaleCharacter;
+import com.lapots.breed.platform.core.repository.domain.MainCharacter;
 import com.lapots.breed.platform.core.repository.domain.NPCharacter;
 import com.lapots.breed.platform.core.repository.domain.Race;
 import com.owlike.genson.Genson;
@@ -29,7 +29,7 @@ public class JsonDataProcessor {
                 } else if ("npc".equals(listName) && "npc".equals(reader.name())) {
                     result = (List<T>) processNpcData(reader);
                     break;
-                } else if ("mainCharacters".equals(listName) && "npc".equals(reader.name())) {
+                } else if ("mainCharacters".equals(listName) && "mainCharacters".equals(reader.name())) {
                     result = (List<T>) processMainCharactersData(reader);
                     break;
                 } else { reader.skipValue(); }
@@ -87,13 +87,13 @@ public class JsonDataProcessor {
         return npcs;
     }
 
-    private static List<MainFemaleCharacter> processMainCharactersData(ObjectReader reader) {
-        List<MainFemaleCharacter> mainCharacters = new ArrayList<>();
+    private static List<MainCharacter> processMainCharactersData(ObjectReader reader) {
+        List<MainCharacter> mainCharacters = new ArrayList<>();
         reader.beginArray();
         while (reader.hasNext()) {
             reader.next();
 
-            MainFemaleCharacter fc = new MainFemaleCharacter();
+            MainCharacter fc = new MainCharacter();
             reader.beginObject();
             while (reader.hasNext()) {
                 reader.next();
@@ -101,7 +101,6 @@ public class JsonDataProcessor {
                 if ("race".equals(reader.name())) { fc.setRace(Race.valueOf(reader.valueAsString())); }
                 else if ("age".equals(reader.name())) { fc.setAge(reader.valueAsInt()); }
                 else if ("name".equals(reader.name())) { fc.setName(reader.valueAsString()); }
-                else if ("id".equals(reader.name())) { fc.setId(UUID.fromString(reader.valueAsString())); }
                 else { reader.skipValue(); }
 
             }
