@@ -13,14 +13,11 @@ import java.util.List;
 public class RacesRepository implements IRacesRepository {
 
     @Inject
-    Hibernate hibernateContext;
-
-    @Inject
     public RacesRepository() {}
 
     @Override
     public void insertRacesBatch(List<Race> batch) {
-        try (Session session = hibernateContext.getSession()) {
+        try (Session session = Hibernate.CONTEXT.getSession()) {
             session.beginTransaction();
             batch.forEach(session::save);
             session.getTransaction().commit();
@@ -30,7 +27,7 @@ public class RacesRepository implements IRacesRepository {
     @Override
     public List<Race> readRaces() {
         List<Race> races = null;
-        try (Session session = hibernateContext.getSession()) {
+        try (Session session = Hibernate.CONTEXT.getSession()) {
             session.beginTransaction();
             races = session.createQuery("from Race", Race.class).list();
             session.getTransaction().commit();
@@ -40,7 +37,7 @@ public class RacesRepository implements IRacesRepository {
 
     @Override
     public void insertRace(Race race) {
-        try (Session session = hibernateContext.getSession()) {
+        try (Session session = Hibernate.CONTEXT.getSession()) {
             session.beginTransaction();
             session.save(race);
             session.getTransaction().commit();
@@ -50,7 +47,7 @@ public class RacesRepository implements IRacesRepository {
     @Override
     public Race getRaceByName(String name) {
         Race dbRace = null;
-        try (Session session = hibernateContext.getSession()) {
+        try (Session session = Hibernate.CONTEXT.getSession()) {
             session.beginTransaction();
 
             String hsql = "from Race where name= :name";

@@ -6,17 +6,17 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
-public class Hibernate {
+public enum Hibernate {
+    CONTEXT;
+
     private StandardServiceRegistry registry;
     private SessionFactory sessionFactory;
 
-    @Inject
-    public Hibernate() {
+    @PostConstruct
+    public void init() {
         registry = new StandardServiceRegistryBuilder()
                 .configure()
                 .build();
