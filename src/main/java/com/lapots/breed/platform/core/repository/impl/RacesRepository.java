@@ -7,9 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.Collections;
 import java.util.List;
 
+@Singleton
 public class RacesRepository implements IRacesRepository {
 
     @Inject

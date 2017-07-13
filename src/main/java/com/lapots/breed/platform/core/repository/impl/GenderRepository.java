@@ -6,8 +6,10 @@ import com.lapots.breed.platform.core.repository.impl.api.IGenderRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import javax.inject.Singleton;
 import java.util.List;
 
+@Singleton
 public class GenderRepository implements IGenderRepository {
 
     @Override

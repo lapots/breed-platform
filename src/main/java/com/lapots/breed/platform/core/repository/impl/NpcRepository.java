@@ -5,9 +5,11 @@ import com.lapots.breed.platform.core.repository.domain.NPCharacter;
 import com.lapots.breed.platform.core.repository.impl.api.INpcRepository;
 import org.hibernate.Session;
 
+import javax.inject.Singleton;
 import java.util.Collections;
 import java.util.List;
 
+@Singleton
 public class NpcRepository implements INpcRepository {
 
     @Override

@@ -5,8 +5,10 @@ import com.lapots.breed.platform.core.repository.domain.MainCharacter;
 import com.lapots.breed.platform.core.repository.impl.api.IMainCharacterRepository;
 import org.hibernate.Session;
 
+import javax.inject.Singleton;
 import java.util.List;
 
+@Singleton
 public class MainCharacterRepository implements IMainCharacterRepository {
 
     @Override
