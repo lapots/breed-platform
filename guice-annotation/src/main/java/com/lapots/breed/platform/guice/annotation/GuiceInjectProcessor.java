@@ -9,6 +9,8 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.MirroredTypeException;
+import javax.lang.model.type.TypeMirror;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 import java.io.IOException;
@@ -33,7 +35,15 @@ public class GuiceInjectProcessor extends AbstractProcessor {
             generateGuiceInjectorClass();
 
             GuiceInject annotation = element.getAnnotation(GuiceInject.class);
-            Class<? extends AbstractModule> moduleToSearchIn = annotation.module();
+
+            // https://area-51.blog/2009/02/13/getting-class-values-from-annotations-in-an-annotationprocessor/
+            TypeMirror value = null;
+            try {
+                annotation.module();
+            } catch (MirroredTypeException e) {
+                value = e.getTypeMirror(); // now we have required value like package.Class there
+            }
+
             // TODO: implement processing flow with class loading and initialization
 
             if (!hadElement) {
