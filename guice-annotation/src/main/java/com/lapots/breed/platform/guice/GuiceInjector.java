@@ -8,25 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuiceInjector {
-    private Injector injector;
+    private static Injector injector;
+    private static List<Module> modules = new ArrayList<>();
 
-    private GuiceInjector(Injector injector) {
-        this.injector = injector;
+    public static void addModule(Module module) {
+        modules.add(module);
     }
 
-    public Injector getInjector() {
-        return injector;
+    public static void init() {
+        injector = Guice.createInjector(modules);
     }
 
-    public static class GuiceInjectorBuilder {
-        private List<Module> injectors = new ArrayList<>();
-        public GuiceInjectorBuilder withModule(Module module) {
-            injectors.add(module);
-            return this;
-        }
-
-        public GuiceInjector build() {
-            return new GuiceInjector(Guice.createInjector(injectors));
-        }
+    public static <T> T getInstance(Class<T> clazz) {
+        return injector.getInstance(clazz);
     }
 }
