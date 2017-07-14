@@ -1,15 +1,13 @@
 package com.lapots.breed.platform;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.lapots.breed.platform.core.di.RepositoryModule;
 import com.lapots.breed.platform.core.repository.Hibernate;
 import com.lapots.breed.platform.core.repository.api.IRacesRepository;
-import com.lapots.breed.platform.guice.GuiceInjector;
+import com.lapots.breed.platform.guice.annotation.GuiceInject;
 
 public class Example {
-    private Injector injector = Guice.createInjector(new RepositoryModule());
-    private IRacesRepository racesRepository = injector.getInstance(IRacesRepository.class);
+    @GuiceInject(module=RepositoryModule.class)
+    private IRacesRepository racesRepository;
 
     private void execute() {
         System.out.println("List of races: " + racesRepository.readRaces());

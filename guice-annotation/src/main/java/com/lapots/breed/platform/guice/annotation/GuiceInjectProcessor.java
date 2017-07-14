@@ -1,50 +1,92 @@
 package com.lapots.breed.platform.guice.annotation;
 
 import com.google.inject.AbstractModule;
-import com.lapots.breed.platform.guice.GuiceInjector;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedSourceVersion;
+import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.tools.FileObject;
+import javax.tools.StandardLocation;
+import java.io.IOException;
 import java.util.Set;
 
-/**
- * Annotation that allows to do injection using Guice
- *
- *    @GuiceInject(module=RepositoryModule.class)
- *    private IRepository repository;
- *
- * During compilation it will transform it into
- *
- *    private IRepository repository = GuiceInjector.getInstance(IRepository.class);
- */
 @SupportedAnnotationTypes("com.lapots.breed.platform.guice.annotation.GuiceInject")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class GuiceInjectProcessor extends AbstractProcessor {
 
+    private Filer filer;
+
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnv) {
+        super.init(processingEnv);
+        filer = processingEnv.getFiler();
+    }
+
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        roundEnv.getElementsAnnotatedWith(GuiceInject.class).forEach(element -> {
-            GuiceInject annotation = element.getAnnotation(GuiceInject.class); // @GuiceInject(module=RepositoryModule.class)
-            Class<? extends AbstractModule> moduleToSearchIn = annotation.module(); // RepositoryModule.class
+        boolean hadElement = false;
+        for (Element element : roundEnv.getElementsAnnotatedWith(GuiceInject.class)) {
+            generateGuiceInjectorClass();
 
-            // instantiate RepositoryModule.class and pass it to GuiceInjector
-            try {
-                GuiceInjector.addModule(moduleToSearchIn.newInstance());
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
+            GuiceInject annotation = element.getAnnotation(GuiceInject.class);
+            Class<? extends AbstractModule> moduleToSearchIn = annotation.module();
+            // TODO: implement processing flow with class loading and initialization
+
+            if (!hadElement) {
+                hadElement = true;
             }
+        };
+        return hadElement;
+    }
 
-            // generate code
-            //      GuiceInjector.getInstance(IRepository.class)
-        });
+    /*
+        Generates source code for class
 
-        // init class
-        // TODO: verify that it can be done
-        GuiceInjector.init();
-        return false;
+        package com.lapots.breed.platform.guice.generator;
+
+        import com.google.inject.Guice;
+        import com.google.inject.Injector;
+        import com.google.inject.Module;
+        import java.util.ArrayList;
+        import java.util.List;
+
+        public class $GuiceInjector {
+            private static Injector injector;
+            private static List<Module> modules = new ArrayList<>();
+
+            public static void addModule(Module module) { modules.add(module); }
+
+            public static void init() { injector = Guice.createInjector(modules); }
+
+            public static <T> T getInstance(Class<T> clazz) {
+                return injector.getInstance(clazz);
+            }
+        }
+     */
+
+    private void generateGuiceInjectorClass() {
+        try {
+            // check file existence
+            filer.getResource(StandardLocation.SOURCE_PATH,
+                    "com.lapots.breed.platform.guice.generated", "$GuiceInjector");
+        } catch (IOException e) {
+            // e.printStackTrace(); // file not found
+
+            TypeSpec.Builder guiceInjectorClass = TypeSpec
+                    .classBuilder("$GuiceInjector")
+                    .addModifiers(Modifier.PUBLIC);
+
+            try {
+                JavaFile.builder("com.lapots.breed.platform.guice.generated", guiceInjectorClass.build())
+                        .build()
+                        .writeTo(filer);
+            } catch (IOException exc) {
+                exc.printStackTrace(); // TODO: add logger
+            }
+        }
     }
 }
