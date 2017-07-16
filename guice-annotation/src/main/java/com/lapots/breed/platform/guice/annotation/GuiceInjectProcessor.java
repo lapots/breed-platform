@@ -2,6 +2,7 @@ package com.lapots.breed.platform.guice.annotation;
 
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.lapots.breed.platform.guice.GuiceInjector;
 import com.squareup.javapoet.*;
 
 import javax.annotation.processing.*;
@@ -11,7 +12,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
 import javax.lang.model.type.TypeMirror;
-import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -108,7 +108,7 @@ public class GuiceInjectProcessor extends AbstractProcessor {
                     .build()
                     .writeTo(filer);
         } catch (IOException exc) {
-            exc.printStackTrace(); // TODO: add logger
+            // exc.printStackTrace(); // TODO: add logger
         }
     }
 }

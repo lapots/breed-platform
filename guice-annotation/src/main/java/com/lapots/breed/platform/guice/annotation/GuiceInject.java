@@ -8,7 +8,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
-@Retention(RetentionPolicy.SOURCE)
+// make annotation visible in runtime for AspectJ
+@Retention(RetentionPolicy.RUNTIME)
 public @interface GuiceInject {
     Class<? extends AbstractModule> module();
 }
