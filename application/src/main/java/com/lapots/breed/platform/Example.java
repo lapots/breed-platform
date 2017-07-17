@@ -1,21 +1,20 @@
 package com.lapots.breed.platform;
 
-import com.lapots.breed.platform.core.di.RepositoryModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.lapots.breed.platform.core.repository.Hibernate;
-import com.lapots.breed.platform.core.repository.api.IRacesRepository;
-import com.lapots.breed.platform.guice.annotation.GuiceInject;
+import com.lapots.breed.platform.prototype.Person;
+import com.lapots.breed.platform.prototype.PersonService;
+import com.lapots.breed.platform.prototype.guice.GuiceModule;
 
-    public class Example {
-        @GuiceInject(module=RepositoryModule.class)
-        private IRacesRepository racesRepository;
+public class Example {
 
-        private void execute() {
-            System.out.println("List of races: " + racesRepository.readRaces());
-        }
+    public static void main(String[] args) {
+        Injector injector = Guice.createInjector(new GuiceModule());
+        PersonService service = injector.getInstance(PersonService.class);
+        Person person = service.findPerson("1"); // ok
 
-        public static void main(String[] args) {
-            new Example().execute();
-
-            Hibernate.CONTEXT.stopHibernate();
-        }
+        System.out.println ("Created person: " + person);
+        Hibernate.CONTEXT.stopHibernate();
     }
+}
