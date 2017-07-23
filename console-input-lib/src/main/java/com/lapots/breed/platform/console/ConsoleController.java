@@ -9,16 +9,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ConsoleController {
-    private static final String QUIT_CMD = "quit";
     private static final String QUIT_CMD_MSG = "Print [ %s ] to EXIT";
     private Map<String, IConsoleInputHandler> menuEntries = new LinkedHashMap<>();
-    private Integer persistentEntryIndex = 0;
+
+    private String quitCommand;
 
     public void loop() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             String line = null;
-            while (!QUIT_CMD.equals(line)) {
-                System.out.println(String.format(QUIT_CMD_MSG, QUIT_CMD));
+            while (!quitCommand.equals(line)) {
+                System.out.println(String.format(QUIT_CMD_MSG, quitCommand));
                 menuEntries.forEach((key, value) -> {
                     System.out.println(key + "." + value.getLabel());
                 });
@@ -30,9 +30,12 @@ public class ConsoleController {
         }
     }
 
-    public void addEntry(IConsoleInputHandler handler) {
-        persistentEntryIndex++;
-        menuEntries.put(persistentEntryIndex.toString(), handler);
+    public void setQuitCommand(String cmd) {
+        this.quitCommand = cmd;
+    }
+
+    public void putEntry(String index, IConsoleInputHandler handler) {
+        menuEntries.put(index, handler);
     }
 
     private void handleInput(String menuEntry, BufferedReader br) {
