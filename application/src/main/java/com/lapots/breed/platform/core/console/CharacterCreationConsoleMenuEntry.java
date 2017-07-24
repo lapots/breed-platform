@@ -1,6 +1,6 @@
 package com.lapots.breed.platform.core.console;
 
-import com.lapots.breed.platform.console.api.AbstractConsoleMenuEntry;
+import com.lapots.breed.platform.console.core.api.AbstractConsoleMenuEntry;
 import com.lapots.breed.platform.core.domain.MainCharacter;
 
 import java.io.BufferedReader;

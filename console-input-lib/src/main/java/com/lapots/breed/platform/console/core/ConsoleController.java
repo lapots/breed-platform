@@ -1,6 +1,6 @@
-package com.lapots.breed.platform.console;
+package com.lapots.breed.platform.console.core;
 
-import com.lapots.breed.platform.console.api.IConsoleInputHandler;
+import com.lapots.breed.platform.console.core.api.IConsoleInputHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ConsoleController {
+public class ConsoleController implements IConsoleInputHandler {
     private static final String QUIT_CMD_MSG = "Print [ %s ] to EXIT";
     private Map<String, IConsoleInputHandler> menuEntries = new LinkedHashMap<>();
 
@@ -34,8 +34,25 @@ public class ConsoleController {
         this.quitCommand = cmd;
     }
 
+    public void listEntries() {
+        System.out.println("All menu entries -->");
+        menuEntries.forEach((key, value) -> {
+            System.out.println(key + " -> " + value.getLabel());
+        });
+    }
+    @Override
+    public void proceedEntryAction(BufferedReader br) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void putEntry(String index, IConsoleInputHandler handler) {
         menuEntries.put(index, handler);
+    }
+
+    @Override
+    public String getLabel() {
+        throw new UnsupportedOperationException();
     }
 
     private void handleInput(String menuEntry, BufferedReader br) {

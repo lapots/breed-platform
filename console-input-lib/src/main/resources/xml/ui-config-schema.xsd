@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://ui.config.ns"
+           xmlns:tns="http://ui.config.ns"
+           elementFormDefault="qualified">
+    <!-- Root element -->
+    <xs:complexType name="XmlConsoleMenu">
+        <xs:sequence>
+            <xs:element ref="tns:console-menu-entry" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="quit-command" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <!-- Menu entry element -->
+    <xs:complexType name="XmlConsoleMenuEntry" mixed="true">
+        <xs:sequence>
+            <xs:element ref="tns:console-menu-entry" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <!-- generate again with string type -->
+        <xs:attribute name="index" type="xs:integer" use="optional"/>
+        <xs:attribute name="text" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:element name="console-menu" type="tns:XmlConsoleMenu"/>
+    <xs:element name="console-menu-entry" type="tns:XmlConsoleMenuEntry"/>
+</xs:schema>

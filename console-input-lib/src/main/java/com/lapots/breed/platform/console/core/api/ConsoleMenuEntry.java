@@ -1,10 +1,13 @@
-package com.lapots.breed.platform.console.api;
+package com.lapots.breed.platform.console.core.api;
+
+import lombok.NoArgsConstructor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@NoArgsConstructor
 public class ConsoleMenuEntry implements IConsoleInputHandler {
     protected BufferedReader br;
     private String label;
@@ -47,6 +50,7 @@ public class ConsoleMenuEntry implements IConsoleInputHandler {
         }
     }
 
+    @Override
     public void putEntry(String index, IConsoleInputHandler handler) {
         menuEntries.put(index, handler);
     }
@@ -54,5 +58,9 @@ public class ConsoleMenuEntry implements IConsoleInputHandler {
     @Override
     public String getLabel() {
         return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

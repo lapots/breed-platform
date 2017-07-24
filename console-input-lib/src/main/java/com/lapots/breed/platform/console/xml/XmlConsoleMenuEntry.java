@@ -1,22 +1,53 @@
 package com.lapots.breed.platform.console.xml;
 
-import lombok.Data;
-import lombok.ToString;
-
-import javax.xml.bind.annotation.*;
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlMixed;
+import javax.xml.bind.annotation.XmlType;
 
-    @XmlRootElement(name="console-menu-entry")
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @ToString
-    public @Data class XmlConsoleMenuEntry {
-        @XmlAttribute
-        private String index;
-        @XmlAttribute
-        private String text;
-        /*
-        @XmlValue // TODO: solve issue with value processing
-        private String value;*/
-        @XmlElement(name="console-menu-entry")
-        private List<XmlConsoleMenuEntry> entries;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "XmlConsoleMenuEntry", propOrder = {
+    "content"
+})
+public class XmlConsoleMenuEntry {
+
+    @XmlElementRef(name = "console-menu-entry", namespace = "http://ui.config.ns", type = JAXBElement.class, required = false)
+    @XmlMixed
+    protected List<Serializable> content;
+    @XmlAttribute(name = "index")
+    protected BigInteger index;
+    @XmlAttribute(name = "text", required = true)
+    protected String text;
+
+    public List<Serializable> getContent() {
+        if (content == null) {
+            content = new ArrayList<Serializable>();
+        }
+        return this.content;
     }
+
+    public BigInteger getIndex() {
+        return index;
+    }
+
+    public void setIndex(BigInteger value) {
+        this.index = value;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String value) {
+        this.text = value;
+    }
+
+}
