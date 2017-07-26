@@ -27,15 +27,22 @@ public class Main {
             try (InputStream is = classPathResource("/xml/ui-config.xml")) {
                 XmlConsoleMenu xmlConsoleMenu =
                         ((JAXBElement<XmlConsoleMenu>) unmarshaller.unmarshal(is)).getValue();
-                System.out.println("Parsed entries: " + xmlConsoleMenu.getConsoleMenuEntry().size());
+                controller.setQuitCommand(xmlConsoleMenu.getQuitCommand());
                 xmlConsoleMenu.getConsoleMenuEntry()
-                        .forEach(menuEntry -> processXmlConsoleMenuEntry(menuEntry, controller));
+                        .forEach(menuEntry -> {
+                            ConsoleMenuEntry consoleMenuEntry = new ConsoleMenuEntry();
+                            consoleMenuEntry.setLabel(menuEntry.getText());
+                            controller.putEntry(menuEntry.getIndex().toString(), consoleMenuEntry);
 
+                            if (!menuEntry.getContent().isEmpty()) {
+                                processXmlConsoleMenuEntry(menuEntry, consoleMenuEntry);
+                            }
+                        });
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            controller.listEntries();
+            controller.loop();
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -45,7 +52,6 @@ public class Main {
     private static void processXmlConsoleMenuEntry(XmlConsoleMenuEntry menuEntry, IConsoleInputHandler body) {
         for (Serializable element : menuEntry.getContent()) {
             if (element instanceof JAXBElement) {
-                System.out.println("Found entry element");
                 XmlConsoleMenuEntry xmlConsoleMenuEntry = ((JAXBElement<XmlConsoleMenuEntry>) element).getValue();
                 ConsoleMenuEntry consoleMenuEntry = new ConsoleMenuEntry();
                 consoleMenuEntry.setLabel(xmlConsoleMenuEntry.getText());
@@ -54,7 +60,6 @@ public class Main {
                 processXmlConsoleMenuEntry(xmlConsoleMenuEntry, consoleMenuEntry);
             } else if (element instanceof String) {
                 String onActionExpr = element.toString().trim();
-                System.out.println("Expected action on invokation: " + onActionExpr);
             }
         }
     }

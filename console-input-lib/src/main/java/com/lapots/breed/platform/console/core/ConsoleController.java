@@ -35,9 +35,9 @@ public class ConsoleController implements IConsoleInputHandler {
     }
 
     public void listEntries() {
-        System.out.println("All menu entries -->");
+        System.out.println("Menu template =>");
         menuEntries.forEach((key, value) -> {
-            System.out.println(key + " -> " + value.getLabel());
+            System.out.println(key + ". " + value.getLabel());
         });
     }
     @Override
@@ -57,9 +57,7 @@ public class ConsoleController implements IConsoleInputHandler {
 
     private void handleInput(String menuEntry, BufferedReader br) {
         IConsoleInputHandler handler = menuEntries.get(menuEntry);
-        if (null == handler) {
-            return;
-        } else {
+        if (null != handler) {
             handler.proceedEntryAction(br);
         }
     }

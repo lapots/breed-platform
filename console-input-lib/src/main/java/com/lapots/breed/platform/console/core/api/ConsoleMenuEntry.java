@@ -42,9 +42,7 @@ public class ConsoleMenuEntry implements IConsoleInputHandler {
 
     private void handleInput(String menuEntry, BufferedReader br) {
         IConsoleInputHandler handler = menuEntries.get(menuEntry);
-        if (null == handler) {
-            return;
-        } else {
+        if (null != handler) {
             handler.proceedEntryAction(br);
             doLoop = false;
         }
