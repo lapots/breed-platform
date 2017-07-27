@@ -8,4 +8,8 @@ public interface IConsoleInputHandler {
     void putEntry(String index, IConsoleInputHandler handler);
 
     String getLabel();
+
+    void setLabel(String label);
+
+    void setBodyActionExpression(String expr);
 }
