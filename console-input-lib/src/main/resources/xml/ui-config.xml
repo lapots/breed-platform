@@ -4,10 +4,10 @@
     <console-menu-entry index="2" text="Print Hello World">
         <!-- design inner actions & entries -->
         <console-menu-entry index="1" text="Print Hello">
-            print 'Hello'
+            print ("Hello");
         </console-menu-entry>
         <console-menu-entry index="2" text="Print World">
-            print 'World'
+            print ("World");
         </console-menu-entry>
     </console-menu-entry>
 </console-menu>

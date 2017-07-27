@@ -9,4 +9,6 @@ run {
 
 dependencies {
     compileOnly('org.projectlombok:lombok:1.16.16')
+    // http://www.beanshell.org/manual/bshmanual.pdf
+    compile group: 'org.beanshell', name: 'bsh', version: '2.0b5'
 }

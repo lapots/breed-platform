@@ -1,5 +1,7 @@
 package com.lapots.breed.platform.console.core.api;
 
+import bsh.EvalError;
+import bsh.Interpreter;
 import com.lapots.breed.platform.console.core.AbstractConsoleMenu;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +11,13 @@ public class ConsoleMenuEntry extends AbstractConsoleMenu {
 
     @Override
     protected void doMenuAction() {
-        System.out.println(this.bodyActionExpr);
+        // add implementation of instruction
+        Interpreter interpreter = new Interpreter();
+        try {
+            interpreter.eval(this.bodyActionExpr);
+        } catch (EvalError evalError) {
+            evalError.printStackTrace();
+        }
     }
 
     @Override
