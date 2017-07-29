@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <console-menu  xmlns="http://ui.config.ns" quit-command="quit">
-    <console-menu-entry index="1" text="Character creation"/>
-    <console-menu-entry index="2" text="Print Hello World">
+    <console-menu-entry index="1" text="Character creation"
+                        impl="com.lapots.breed.platform.console.sample.EmptyConsoleMenuEntry"/>
+    <!-- possible to make [impl] as not required field if entries defined -->
+    <console-menu-entry index="2" text="Print Hello World" impl="com.lapots.breed.platform.console.sample.EmptyConsoleMenuEntry">
         <!-- design inner actions & entries -->
-        <console-menu-entry index="1" text="Print Hello">
+        <console-menu-entry index="1" text="Print Hello"
+                            impl="com.lapots.breed.platform.console.sample.BasicConsoleMenuEntry">
             print ("Hello");
         </console-menu-entry>
-        <console-menu-entry index="2" text="Print World">
+        <console-menu-entry index="2" text="Print World"
+                            impl="com.lapots.breed.platform.console.sample.BasicConsoleMenuEntry">
             print ("World");
         </console-menu-entry>
     </console-menu-entry>

@@ -25,6 +25,8 @@ public class XmlConsoleMenuEntry {
     protected BigInteger index;
     @XmlAttribute(name = "text", required = true)
     protected String text;
+    @XmlAttribute(name = "impl", required = true)
+    protected String implementationClass;
 
     public List<Serializable> getContent() {
         if (content == null) {
@@ -49,4 +51,11 @@ public class XmlConsoleMenuEntry {
         this.text = value;
     }
 
+    public String getImplementationClass() {
+        return implementationClass;
+    }
+
+    public void setImplementationClass(String implementationClass) {
+        this.implementationClass = implementationClass;
+    }
 }

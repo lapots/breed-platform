@@ -29,12 +29,17 @@ public final class XmlParserUtils {
                 ref.setQuitCommand(xmlConsoleMenu.getQuitCommand());
                 xmlConsoleMenu.getConsoleMenuEntry()
                         .forEach(menuEntry -> {
-                            ConsoleMenuEntry consoleMenuEntry = new ConsoleMenuEntry();
-                            consoleMenuEntry.setLabel(menuEntry.getText());
-                            ref.putEntry(menuEntry.getIndex().toString(), consoleMenuEntry);
-
-                            if (!menuEntry.getContent().isEmpty()) {
-                                processXmlConsoleMenuEntry(menuEntry, consoleMenuEntry);
+                            String entryType = menuEntry.getImplementationClass();
+                            ConsoleMenuEntry consoleMenuEntry = null;
+                            try {
+                                consoleMenuEntry = (ConsoleMenuEntry) Class.forName(entryType).newInstance();
+                                consoleMenuEntry.setLabel(menuEntry.getText());
+                                ref.putEntry(menuEntry.getIndex().toString(), consoleMenuEntry);
+                                if (!menuEntry.getContent().isEmpty()) {
+                                    processXmlConsoleMenuEntry(menuEntry, consoleMenuEntry);
+                                }
+                            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                                e.printStackTrace();
                             }
                         });
             } catch (IOException e) {
@@ -52,11 +57,16 @@ public final class XmlParserUtils {
         for (Serializable element : menuEntry.getContent()) {
             if (element instanceof JAXBElement) {
                 XmlConsoleMenuEntry xmlConsoleMenuEntry = ((JAXBElement<XmlConsoleMenuEntry>) element).getValue();
-                ConsoleMenuEntry consoleMenuEntry = new ConsoleMenuEntry();
-                consoleMenuEntry.setLabel(xmlConsoleMenuEntry.getText());
-                body.putEntry(xmlConsoleMenuEntry.getIndex().toString(), consoleMenuEntry);
-
-                processXmlConsoleMenuEntry(xmlConsoleMenuEntry, consoleMenuEntry);
+                String entryType = xmlConsoleMenuEntry.getImplementationClass();
+                ConsoleMenuEntry consoleMenuEntry = null;
+                try {
+                    consoleMenuEntry = (ConsoleMenuEntry) Class.forName(entryType).newInstance();
+                    consoleMenuEntry.setLabel(xmlConsoleMenuEntry.getText());
+                    body.putEntry(xmlConsoleMenuEntry.getIndex().toString(), consoleMenuEntry);
+                    processXmlConsoleMenuEntry(xmlConsoleMenuEntry, consoleMenuEntry);
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             } else if (element instanceof String) {
                 String onActionExpr = element.toString().trim();
                 body.setBodyActionExpression(onActionExpr);

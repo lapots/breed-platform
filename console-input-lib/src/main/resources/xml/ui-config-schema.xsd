@@ -19,6 +19,7 @@
         <!-- generate again with string type -->
         <xs:attribute name="index" type="xs:integer" use="optional"/>
         <xs:attribute name="text" type="xs:string" use="required"/>
+        <xs:attribute name="impl" type="xs:string" use="required"/>
     </xs:complexType>
 
     <xs:element name="console-menu" type="tns:XmlConsoleMenu"/>
