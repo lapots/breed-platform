@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+    <data type="json">
+        <file-path resources-path="true">/breed/data.json</file-path>
+        <entries>
+            <entry>
+                <label>races</label>
+                <data-class>com.lapots.breed.platform.core.domain.Race</data-class>
+                <repository-class>
+                    com.lapots.breed.platform.core.repository.api.IRacesRepository
+                </repository-class>
+            </entry>
+            <entry>
+                <label>npc</label>
+                <data-class>com.lapots.breed.platform.core.domain.NPCharacter</data-class>
+                <repository-class>
+                    com.lapots.breed.platform.core.repository.api.INpcRepository
+                </repository-class>
+            </entry>
+            <entry>
+                <label>mainCharacters</label>
+                <data-class>com.lapots.breed.platform.core.domain.MainCharacter</data-class>
+                <repository-class>
+                    com.lapots.breed.platform.core.repository.api.IMainCharacterRepository
+                </repository-class>
+            </entry>
+            <entry>
+                <label>genders</label>
+                <data-class>com.lapots.breed.platform.core.domain.Gender</data-class>
+                <repository-class>
+                    com.lapots.breed.platform.core.repository.api.IGenderRepository
+                </repository-class>
+            </entry>
+        </entries>
+    </data>
+</configuration>

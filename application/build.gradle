@@ -8,7 +8,6 @@ run {
 }
 
 dependencies {
-    compile project(":guice-annotation")
     compile project(":console-input-lib")
 
     compile("org.hibernate:hibernate-core:5.2.10.Final")

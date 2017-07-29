@@ -1,0 +1,12 @@
+apply plugin: 'application'
+
+sourceCompatibility=1.8
+mainClassName = 'com.lapots.breed.platform.json.sample.Main'
+
+run {
+    standardInput = System.in
+}
+
+dependencies {
+    compile("com.owlike:genson:1.4")
+}

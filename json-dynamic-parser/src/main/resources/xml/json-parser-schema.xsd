@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://json.config.ns"
+           xmlns:tns="http://json.config.ns"
+           elementFormDefault="qualified">
+
+    <xs:complexType name="XmlJsonConfiguration">
+        <xs:sequence>
+            <xs:element ref="tns:data" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="XmlConfigurationData">
+        <xs:sequence>
+            <xs:element ref="tns:file-path" minOccurs="1" maxOccurs="1"/>
+            <xs:element ref="tns:entries" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="json" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:simpleType name="XmlConfigurationEntries">
+        <xs:list itemType="tns:XmlConfigurationEntry"/>
+    </xs:simpleType>
+
+    <xs:complexType name="XmlConfigurationEntry">
+        <xs:sequence>
+            <xs:element ref="tns:label" minOccurs="1" maxOccurs="1"/>
+            <xs:element ref="tns:data-class" minOccurs="1" maxOccurs="1"/>
+            <xs:element ref="tns:repository-class" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="XmlConfigurationFilePath">
+        <xs:attribute name="resources-path" type="xs:string"/>
+    </xs:simpleType>
+
+    <xs:element name="data" type="tns:XmlConfigurationData"/>
+    <xs:element name="entries" type="tns:XmlConfigurationEntries"/>
+    <xs:element name="entry" type="tns:XmlConfigurationEntry"/>
+    <xs:element name="file-path" type="tns:XmlConfigurationFilePath"/>
+
+    <xs:element name="label" type="xs:string"/>
+    <xs:element name="data-class" type="xs:string"/>
+    <xs:element name="repository-class" type="xs:string"/>
+</xs:schema>

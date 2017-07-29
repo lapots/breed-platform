@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.*;
 
 public class JsonDataProcessor  {
-    private static final String FILE = "/application/src/main/resources/breed/data.json";
+    private static final String FILE = "/breed/data.json";
 
     private static RacesRepository racesRepository = new RacesRepository();
     private static GenderRepository genderRepository = new GenderRepository();

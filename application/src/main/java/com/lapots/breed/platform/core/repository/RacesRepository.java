@@ -13,9 +13,6 @@ import java.util.List;
 @Singleton
 public class RacesRepository implements IRacesRepository {
 
-    @Inject
-    public RacesRepository() {}
-
     @Override
     public void insertRacesBatch(List<Race> batch) {
         try (Session session = Hibernate.CONTEXT.getSession()) {
