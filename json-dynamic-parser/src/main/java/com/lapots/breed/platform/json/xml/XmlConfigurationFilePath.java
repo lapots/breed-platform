@@ -15,7 +15,7 @@ public class XmlConfigurationFilePath {
     @XmlValue
     protected String value;
     @XmlAttribute(name = "resources-path")
-    protected String resourcesPath;
+    protected Boolean resourcesPath;
 
     public String getValue() {
         return value;
@@ -25,11 +25,11 @@ public class XmlConfigurationFilePath {
         this.value = value;
     }
 
-    public String getResourcesPath() {
+    public Boolean isResourcesPath() {
         return resourcesPath;
     }
 
-    public void setResourcesPath(String value) {
+    public void setResourcesPath(Boolean value) {
         this.resourcesPath = value;
     }
 

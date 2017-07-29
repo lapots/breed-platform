@@ -27,7 +27,7 @@
     <xs:complexType name="XmlConfigurationEntry">
         <xs:sequence>
             <xs:element ref="tns:label" minOccurs="1" maxOccurs="1"/>
-            <xs:element ref="tns:data-class" minOccurs="1" maxOccurs="1"/>
+            <xs:element ref="tns:domain-class" minOccurs="1" maxOccurs="1"/>
             <xs:element ref="tns:repository-class" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
@@ -35,7 +35,7 @@
     <xs:complexType name="XmlConfigurationFilePath">
         <xs:simpleContent>
             <xs:extension base="xs:string">
-                <xs:attribute name="resources-path" type="xs:string"/>
+                <xs:attribute name="resources-path" type="xs:boolean"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
@@ -47,6 +47,6 @@
     <xs:element name="file-path" type="tns:XmlConfigurationFilePath"/>
 
     <xs:element name="label" type="xs:string"/>
-    <xs:element name="data-class" type="xs:string"/>
+    <xs:element name="domain-class" type="xs:string"/>
     <xs:element name="repository-class" type="xs:string"/>
 </xs:schema>

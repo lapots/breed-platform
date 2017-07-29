@@ -10,7 +10,7 @@ public class ObjectFactory {
 
     private final static QName _Configuration_QNAME = new QName("http://json.config.ns", "configuration");
     private final static QName _Data_QNAME = new QName("http://json.config.ns", "data");
-    private final static QName _DataClass_QNAME = new QName("http://json.config.ns", "data-class");
+    private final static QName _DomainClass_QNAME = new QName("http://json.config.ns", "domain-class");
     private final static QName _RepositoryClass_QNAME = new QName("http://json.config.ns", "repository-class");
     private final static QName _Entry_QNAME = new QName("http://json.config.ns", "entry");
     private final static QName _Entries_QNAME = new QName("http://json.config.ns", "entries");
@@ -50,9 +50,9 @@ public class ObjectFactory {
         return new JAXBElement<XmlConfigurationData>(_Data_QNAME, XmlConfigurationData.class, null, value);
     }
 
-    @XmlElementDecl(namespace = "http://json.config.ns", name = "data-class")
-    public JAXBElement<String> createDataClass(String value) {
-        return new JAXBElement<String>(_DataClass_QNAME, String.class, null, value);
+    @XmlElementDecl(namespace = "http://json.config.ns", name = "domain-class")
+    public JAXBElement<String> createDomainClass(String value) {
+        return new JAXBElement<String>(_DomainClass_QNAME, String.class, null, value);
     }
 
     @XmlElementDecl(namespace = "http://json.config.ns", name = "repository-class")

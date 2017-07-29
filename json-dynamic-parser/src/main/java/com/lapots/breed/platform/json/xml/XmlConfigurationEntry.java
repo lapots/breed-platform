@@ -8,15 +8,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "XmlConfigurationEntry", propOrder = {
     "label",
-    "dataClass",
+    "domainClass",
     "repositoryClass"
 })
 public class XmlConfigurationEntry {
 
     @XmlElement(required = true)
     protected String label;
-    @XmlElement(name = "data-class", required = true)
-    protected String dataClass;
+    @XmlElement(name = "domain-class", required = true)
+    protected String domainClass;
     @XmlElement(name = "repository-class", required = true)
     protected String repositoryClass;
 
@@ -28,12 +28,12 @@ public class XmlConfigurationEntry {
         this.label = value;
     }
 
-    public String getDataClass() {
-        return dataClass;
+    public String getDomainClass() {
+        return domainClass;
     }
 
-    public void setDataClass(String value) {
-        this.dataClass = value;
+    public void setDomainClass(String value) {
+        this.domainClass = value;
     }
 
     public String getRepositoryClass() {

@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<configuration>
+<configuration  xmlns="http://json.config.ns">
     <data type="json">
         <file-path resources-path="true">/sample/data.json</file-path>
         <entries>
             <entry>
                 <label>names</label>
-                <data-class>com.lapots.breed.platform.json.sample.NameDomain</data-class>
-                <repository-class>com.lapots.breed.platform.json.sample.INameRepository</repository-class>
+                <domain-class>com.lapots.breed.platform.json.sample.NameDomain</domain-class>
+                <repository-class>com.lapots.breed.platform.json.sample.NameRepository</repository-class>
             </entry>
         </entries>
     </data>
