@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.nio.file.NoSuchFileException;
 import java.util.*;
 
 public class JsonParserContext {
@@ -71,7 +72,7 @@ public class JsonParserContext {
                     reader.next();
 
                     try {
-                        Field field = domainClass.getDeclaredField(reader.name());
+                        Field field = findField(domainClass, reader.name());
                         field.setAccessible(true);
                         field.set(domainObject, convertStringToType(reader.valueAsString(), field.getType()));
                     } catch (NoSuchFieldException e) {
@@ -120,5 +121,17 @@ public class JsonParserContext {
 
     private static InputStream classPathResource(String name) {
         return JAXBContext.class.getResourceAsStream(name);
+    }
+
+    private static Field findField(Class<?> clazz, String name) throws NoSuchFieldException {
+        Field field = null;
+        try {
+            field = clazz.getDeclaredField(name);
+        } catch (NoSuchFieldException e) {
+            if (null != clazz.getSuperclass()) {
+                return findField(clazz.getSuperclass(), name);
+            }
+        }
+        return field;
     }
 }
