@@ -39,4 +39,9 @@ public class NpcRepository implements INpcRepository {
             session.getTransaction().commit();
         }
     }
+
+    @Override
+    public void insertBatch(List batch) {
+        batch.forEach(object -> insertNpc((NPCharacter) object));
+    }
 }

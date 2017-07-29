@@ -49,4 +49,9 @@ public class MainCharacterRepository implements IMainCharacterRepository {
         }
         return character;
     }
+
+    @Override
+    public void insertBatch(List batch) {
+        batch.forEach(object -> insertCharacter((MainCharacter) object));
+    }
 }

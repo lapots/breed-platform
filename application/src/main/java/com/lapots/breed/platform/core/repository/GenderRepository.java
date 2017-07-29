@@ -55,4 +55,11 @@ public class GenderRepository implements IGenderRepository {
         }
         return dbGender;
     }
+
+    @Override
+    public void insertBatch(List batch) {
+        batch.forEach(object -> {
+            insertGender((Gender) object);
+        });
+    }
 }

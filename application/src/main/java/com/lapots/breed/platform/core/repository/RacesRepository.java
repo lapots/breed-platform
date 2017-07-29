@@ -57,4 +57,9 @@ public class RacesRepository implements IRacesRepository {
         }
         return dbRace;
     }
+
+    @Override
+    public void insertBatch(List batch) {
+        batch.forEach(object -> insertRace((Race) object));
+    }
 }
