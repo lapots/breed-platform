@@ -10,7 +10,6 @@ import javax.xml.bind.JAXBContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.nio.file.NoSuchFileException;
 import java.util.*;
 
 public class JsonParserContext {
@@ -18,6 +17,7 @@ public class JsonParserContext {
     private boolean readAsClasspath;
 
     private Map<String, JsonParserComponent> parserComponentMap = new HashMap<>();
+    private JsonConversionRegistry conversionRegistry = new JsonConversionRegistry();
     private Genson genson = new Genson();
 
     public void setFilePath(String filePath) {
@@ -31,6 +31,10 @@ public class JsonParserContext {
     public void putJsonParserComponent(String label, String domainClass, String repositoryClass) {
         JsonParserComponent component = new JsonParserComponent(repositoryClass, domainClass);
         parserComponentMap.put(label, component);
+    }
+
+    public void putConverter(String from, String to, String implClass) {
+        conversionRegistry.addConverter(from, to, implClass);
     }
 
     public void doParse() {
@@ -107,9 +111,9 @@ public class JsonParserContext {
             return Integer.valueOf(input);
         } else if (expected == UUID.class) {
             return UUID.fromString(input);
+        } else {
+            return conversionRegistry.convert(String.class.getName(), expected.getName(), input);
         }
-
-        return null;
     }
 
     @Data

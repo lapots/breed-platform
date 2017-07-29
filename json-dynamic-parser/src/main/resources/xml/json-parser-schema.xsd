@@ -7,6 +7,7 @@
     <xs:complexType name="XmlJsonConfiguration">
         <xs:sequence>
             <xs:element ref="tns:data" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element ref="tns:converters" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -40,13 +41,32 @@
         </xs:simpleContent>
     </xs:complexType>
 
+    <xs:complexType name="XmlJsonConverters">
+        <xs:sequence>
+            <xs:element ref="tns:converter" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="XmlJsonConverter">
+        <xs:sequence>
+            <xs:element ref="tns:from-class" minOccurs="1" maxOccurs="1"/>
+            <xs:element ref="tns:to-class" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="class" type="xs:string"/>
+    </xs:complexType>
+
+
     <xs:element name="configuration" type="tns:XmlJsonConfiguration"/>
     <xs:element name="data" type="tns:XmlConfigurationData"/>
     <xs:element name="entries" type="tns:XmlConfigurationEntries"/>
     <xs:element name="entry" type="tns:XmlConfigurationEntry"/>
     <xs:element name="file-path" type="tns:XmlConfigurationFilePath"/>
+    <xs:element name="converters" type="tns:XmlJsonConverters"/>
+    <xs:element name="converter" type="tns:XmlJsonConverter"/>
 
     <xs:element name="label" type="xs:string"/>
     <xs:element name="domain-class" type="xs:string"/>
     <xs:element name="repository-class" type="xs:string"/>
+    <xs:element name="from-class" type="xs:string"/>
+    <xs:element name="to-class" type="xs:string"/>
 </xs:schema>

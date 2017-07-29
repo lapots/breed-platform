@@ -10,4 +10,10 @@
             </entry>
         </entries>
     </data>
+    <converters>
+        <converter class="com.lapots.breed.platform.json.sample.converter.StringToNameDomainSingleConverter">
+            <from-class>java.lang.String</from-class>
+            <to-class>com.lapots.breed.platform.json.sample.NameDomain</to-class>
+        </converter>
+    </converters>
 </configuration>

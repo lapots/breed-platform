@@ -2,11 +2,13 @@
   "names": [
     {
       "id": "1",
-      "name": "Michael"
+      "name": "Michael",
+      "domain": "Inner name"
     },
     {
       "id": "2",
-      "name": "Rosette"
+      "name": "Rosette",
+      "domain": "Inner name"
     }
   ]
 }

@@ -1,5 +1,6 @@
 package com.lapots.breed.platform.json;
 
+import com.lapots.breed.platform.json.core.JsonConversionRegistry;
 import com.lapots.breed.platform.json.core.JsonParserContext;
 import com.lapots.breed.platform.json.xml.*;
 
@@ -38,6 +39,7 @@ public class JsonParserRunner {
             XmlJsonConfiguration configuration =
                     ((JAXBElement<XmlJsonConfiguration>) unmarshaller.unmarshal(is)).getValue();
             processDataElement(configuration);
+            processConverters(configuration.getConverters());
         } catch (IOException | JAXBException e) {
             e.printStackTrace();
         }
@@ -65,6 +67,16 @@ public class JsonParserRunner {
             jsonParserContext.putJsonParserComponent(entry.getLabel(),
                     entry.getDomainClass(), entry.getRepositoryClass());
         }
+    }
+
+    private void processConverters(XmlJsonConverters converters) {
+        for (XmlJsonConverter converter : converters.getConverter()) {
+            processConverter(converter);
+        }
+    }
+
+    private void processConverter(XmlJsonConverter converter) {
+        jsonParserContext.putConverter(converter.getFromClass(), converter.getToClass(), converter.getClazz());
     }
 
     private static InputStream classPathResource(String name) {

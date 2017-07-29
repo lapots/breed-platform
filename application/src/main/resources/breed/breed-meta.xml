@@ -25,4 +25,14 @@
             </entry>
         </entries>
     </data>
+    <converters>
+        <converter class="com.lapots.breed.platform.core.converter.StringToRaceSingleConverter">
+            <from-class>java.lang.String</from-class>
+            <to-class>com.lapots.breed.platform.core.domain.Race</to-class>
+        </converter>
+        <converter class="com.lapots.breed.platform.core.converter.StringToGenderSingleConverter">
+            <from-class>java.lang.String</from-class>
+            <to-class>com.lapots.breed.platform.core.domain.Gender</to-class>
+        </converter>
+    </converters>
 </configuration>

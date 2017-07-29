@@ -9,18 +9,28 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "XmlJsonConfiguration", propOrder = {
-    "data"
+    "data",
+    "converters"
 })
 public class XmlJsonConfiguration {
 
     @XmlElement(required = true)
     protected List<XmlConfigurationData> data;
+    protected XmlJsonConverters converters;
 
     public List<XmlConfigurationData> getData() {
         if (data == null) {
             data = new ArrayList<XmlConfigurationData>();
         }
         return this.data;
+    }
+
+    public XmlJsonConverters getConverters() {
+        return converters;
+    }
+
+    public void setConverters(XmlJsonConverters value) {
+        this.converters = value;
     }
 
 }
