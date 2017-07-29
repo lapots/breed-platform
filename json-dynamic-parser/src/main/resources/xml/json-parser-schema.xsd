@@ -15,12 +15,14 @@
             <xs:element ref="tns:file-path" minOccurs="1" maxOccurs="1"/>
             <xs:element ref="tns:entries" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
-        <xs:attribute name="json" type="xs:string"/>
+        <xs:attribute name="type" type="xs:string"/>
     </xs:complexType>
 
-    <xs:simpleType name="XmlConfigurationEntries">
-        <xs:list itemType="tns:XmlConfigurationEntry"/>
-    </xs:simpleType>
+    <xs:complexType name="XmlConfigurationEntries">
+        <xs:sequence>
+            <xs:element ref="tns:entry" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:complexType name="XmlConfigurationEntry">
         <xs:sequence>
@@ -30,10 +32,15 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="XmlConfigurationFilePath">
-        <xs:attribute name="resources-path" type="xs:string"/>
-    </xs:simpleType>
+    <xs:complexType name="XmlConfigurationFilePath">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="resources-path" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
 
+    <xs:element name="configuration" type="tns:XmlJsonConfiguration"/>
     <xs:element name="data" type="tns:XmlConfigurationData"/>
     <xs:element name="entries" type="tns:XmlConfigurationEntries"/>
     <xs:element name="entry" type="tns:XmlConfigurationEntry"/>
