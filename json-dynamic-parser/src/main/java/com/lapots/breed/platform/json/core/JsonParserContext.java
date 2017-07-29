@@ -10,10 +10,7 @@ import javax.xml.bind.JAXBContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JsonParserContext {
     private String filePath;
@@ -105,8 +102,10 @@ public class JsonParserContext {
     private Object convertStringToType(String input, Class<?> expected) {
         if (expected == String.class) {
             return input;
-        } else if (expected == Integer.class) {
+        } else if (expected == int.class || expected == Integer.class) {
             return Integer.valueOf(input);
+        } else if (expected == UUID.class) {
+            return UUID.fromString(input);
         }
 
         return null;
