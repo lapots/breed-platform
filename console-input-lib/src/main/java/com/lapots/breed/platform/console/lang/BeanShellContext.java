@@ -1,4 +1,4 @@
-package com.lapots.breed.platform.json.lang;
+package com.lapots.breed.platform.console.lang;
 
 import bsh.EvalError;
 import bsh.Interpreter;

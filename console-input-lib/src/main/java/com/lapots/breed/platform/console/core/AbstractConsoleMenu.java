@@ -1,6 +1,6 @@
-package com.lapots.breed.platform.json.core;
+package com.lapots.breed.platform.console.core;
 
-import com.lapots.breed.platform.json.core.api.IConsoleInputHandler;
+import com.lapots.breed.platform.console.core.api.IConsoleInputHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;

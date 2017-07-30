@@ -1,6 +1,6 @@
-package com.lapots.breed.platform.json.core.api;
+package com.lapots.breed.platform.console.core.api;
 
-import com.lapots.breed.platform.json.core.AbstractConsoleMenu;
+import com.lapots.breed.platform.console.core.AbstractConsoleMenu;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

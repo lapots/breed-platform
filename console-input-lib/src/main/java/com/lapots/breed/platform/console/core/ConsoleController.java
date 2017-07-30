@@ -1,4 +1,4 @@
-package com.lapots.breed.platform.json.core;
+package com.lapots.breed.platform.console.core;
 
 public class ConsoleController extends AbstractConsoleMenu {
     private static final String QUIT_CMD_MSG = "Print [ %s ] to EXIT";

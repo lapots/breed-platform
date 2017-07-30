@@ -1,4 +1,4 @@
-package com.lapots.breed.platform.json.xml;
+package com.lapots.breed.platform.console.xml;
 
 import java.io.Serializable;
 import java.math.BigInteger;

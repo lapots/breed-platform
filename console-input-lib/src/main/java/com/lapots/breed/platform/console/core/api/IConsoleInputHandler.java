@@ -1,4 +1,4 @@
-package com.lapots.breed.platform.json.core.api;
+package com.lapots.breed.platform.console.core.api;
 
 import java.io.BufferedReader;
 

@@ -1,11 +1,11 @@
-package com.lapots.breed.platform.json.xml.util;
+package com.lapots.breed.platform.console.xml.util;
 
-import com.lapots.breed.platform.json.core.ConsoleController;
-import com.lapots.breed.platform.json.core.api.ConsoleMenuEntry;
-import com.lapots.breed.platform.json.core.api.IConsoleInputHandler;
-import com.lapots.breed.platform.json.xml.ObjectFactory;
-import com.lapots.breed.platform.json.xml.XmlConsoleMenu;
-import com.lapots.breed.platform.json.xml.XmlConsoleMenuEntry;
+import com.lapots.breed.platform.console.core.ConsoleController;
+import com.lapots.breed.platform.console.core.api.ConsoleMenuEntry;
+import com.lapots.breed.platform.console.xml.ObjectFactory;
+import com.lapots.breed.platform.console.xml.XmlConsoleMenu;
+import com.lapots.breed.platform.console.core.api.IConsoleInputHandler;
+import com.lapots.breed.platform.console.xml.XmlConsoleMenuEntry;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
