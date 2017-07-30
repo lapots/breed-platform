@@ -1,3 +1,0 @@
-rootProject.name='breed-platform'
-
-include 'application', 'console-input-lib', 'guice-annotation', 'json-dynamic-parser'
