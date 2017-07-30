@@ -60,6 +60,7 @@ public final class XmlParserUtils {
                 String entryType = xmlConsoleMenuEntry.getImplementationClass();
                 ConsoleMenuEntry consoleMenuEntry = null;
                 try {
+                    // find workaround for dependency injection just in case
                     consoleMenuEntry = (ConsoleMenuEntry) Class.forName(entryType).newInstance();
                     consoleMenuEntry.setLabel(xmlConsoleMenuEntry.getText());
                     body.putEntry(xmlConsoleMenuEntry.getIndex().toString(), consoleMenuEntry);
