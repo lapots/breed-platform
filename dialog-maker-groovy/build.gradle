@@ -8,3 +8,7 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.14'
 }
 
+task run(type:JavaExec, dependsOn: 'classes') {
+    main = 'com.lapots.breed.dialog.maker.script'
+    classpath = sourceSets.main.runtimeClasspath
+}
