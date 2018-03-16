@@ -10,7 +10,7 @@ def dialogFlow = new DialogFlow(dialogId: dialogSheet.@id)
 // convert
 dialogSheet.flow.each { flow -> // one record
     dialogFlow.phraseBankId = flow.@ref
-    def bank = dialogSheet."phrase-bank".'**'.find { pb -> pb.@id == flow.@ref }
+    def bank = findByAttribute(dialogSheet, "phrase-bank", "id", flow.@ref)
     dialogFlow.phrases = flow.children()
         .sort { left, right -> left.@dependsOn.text() as int <=> right.@dependsOn.text() as int }
         .collect { flow_element ->
@@ -35,4 +35,8 @@ println dialogFlow.phrases
 
 def readResource(name) {
     this.getClass().getResource(name).text
+}
+
+def findByAttribute(xml, parent, attribute, value) {
+    xml."$parent".'**'.find { it.@"$attribute" == value }
 }
