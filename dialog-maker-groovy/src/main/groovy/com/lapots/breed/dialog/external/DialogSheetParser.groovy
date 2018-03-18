@@ -8,28 +8,33 @@ import static com.lapots.breed.dialog.util.XmlProcessingUtils.readResource
 
 class DialogSheetParser {
 
-    DialogFlow parseSingleFlowSheet(String sheetFile) {
-        def dialogSheet = new XmlSlurper().parseText(readResource(sheetFile))
-        def dialogFlow = new DialogFlow(dialogId: dialogSheet.@id)
+    List<DialogFlow> parseFlowSheet(String sheetFile) {
+        def dialogs = new XmlSlurper().parseText(readResource(sheetFile))
+        def dialogFlows = []
         // convert
-        dialogSheet.flow.each { flow -> // one record
+        dialogs.dialog.each { parseSingleDialogEntry(it, dialogFlows) }
+        dialogFlows
+    }
+
+    def parseSingleDialogEntry(dialog, out) {
+        dialog.flow.each { flow -> // one record
+            def dialogFlow = new DialogFlow(dialogId: dialog.@id)
             dialogFlow.phraseBankId = flow.@ref
-            def bank = findByAttribute(dialogSheet, "phrase-bank", "id", flow.@ref)
+            def bank = findByAttribute(dialog, "phrase-bank", "id", flow.@ref)
             dialogFlow.phrases = flow.children()
                     .sort { left, right -> left.@dependsOn.text() as int <=> right.@dependsOn.text() as int }
                     .collect { flow_element ->
-                def xmlPhrase = findByAttribute(bank, "phrase", "id", flow_element.text())
+                def xmlPhrase =
+                        findByAttribute(bank, "phrase", "id", flow_element.text())
                 new DialogPhrase(
                         phraseBankId: flow.@ref,
                         speakerId: xmlPhrase.@speaker,
                         text: xmlPhrase.text(),
                         language: xmlPhrase.@language
                 )
-
             } as List
+
+            out << dialogFlow
         }
-
-        dialogFlow
     }
-
 }
