@@ -10,7 +10,6 @@ class DialogSheetParser {
 
     List<DialogFlow> parseFlowSheet(String sheetFile) {
         def dialogs = new XmlSlurper().parseText(readResource(sheetFile))
-        // convert
         dialogs.dialog.collect { parseSingleDialogEntry(it) }
     }
 
@@ -21,17 +20,18 @@ class DialogSheetParser {
             def bank = findByAttribute(dialog, "phrase-bank", "id", flow.@ref)
             dialogFlow.phrases = flow.children()
                     .sort { left, right -> left.@dependsOn.text() as int <=> right.@dependsOn.text() as int }
-                    .collect { flow_element ->
-                def xmlPhrase =
-                        findByAttribute(bank, "phrase", "id", flow_element.text())
-                new DialogPhrase(
-                        phraseBankId: flow.@ref,
-                        speakerId: xmlPhrase.@speaker,
-                        text: xmlPhrase.text(),
-                        language: xmlPhrase.@language
-                )
-            } as List
+                    .collect { parseSingleFlowElement(it, bank) } as List
         }
         dialogFlow
+    }
+
+    def parseSingleFlowElement(element, bank) {
+        def xmlPhrase = findByAttribute(bank, "phrase", "id", element.text())
+        new DialogPhrase(
+            phraseBankId: bank.@id,
+            speakerId: xmlPhrase.@speaker,
+            text: xmlPhrase.text(),
+            language: xmlPhrase.@language
+        )
     }
 }
