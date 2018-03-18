@@ -20,18 +20,27 @@ class DialogSheetParser {
             def bank = findByAttribute(dialog, "phrase-bank", "id", flow.@ref)
             dialogFlow.phrases = flow.children()
                     .sort { left, right -> left.@dependsOn.text() as int <=> right.@dependsOn.text() as int }
-                    .collect { parseSingleFlowElement(it, bank) } as List
+                    .collect { parseSingleFlowElement(it, bank) }
+                    .findAll { it != null } // [] - null works too!
         }
         dialogFlow
     }
 
     def parseSingleFlowElement(element, bank) {
+        if (element.@type.text() == "single") {
+            return parseSingleTypeFlowElement(element, bank)
+        }
+
+        null
+    }
+
+    def parseSingleTypeFlowElement(element, bank) {
         def xmlPhrase = findByAttribute(bank, "phrase", "id", element.text())
-        new DialogPhrase(
-            phraseBankId: bank.@id,
-            speakerId: xmlPhrase.@speaker,
-            text: xmlPhrase.text(),
-            language: xmlPhrase.@language
+        return new DialogPhrase(
+                phraseBankId: bank.@id,
+                speakerId: xmlPhrase.@speaker,
+                text: xmlPhrase.text(),
+                language: xmlPhrase.@language
         )
     }
 }

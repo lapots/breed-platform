@@ -14,4 +14,12 @@
             <phrase id="TUTORIAL_PH_4" language="en" type="single" speaker="PLAYER">Thank you!</phrase>
         </phrase-bank>
     </dialog>
+    <dialog id="CHOICE_TUTORIAL">
+        <flow ref="pb_2">
+            <flow-element index="0" dependsOn="-1" type="single" trigger="NPC">CHOICE_TUTORIAL_PH_1</flow-element>
+        </flow>
+        <phrase-bank id="pb_2">
+            <phrase id="CHOICE_TUTORIAL_PH_1" language="en" type="single" speaker="TRAINER_1">Let's test the ability to make choices</phrase>
+        </phrase-bank>
+    </dialog>
 </dialogs>

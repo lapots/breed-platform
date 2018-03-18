@@ -7,6 +7,6 @@ def dialogFlows = new DialogSheetParser().parseFlowSheet("/sheet-1.xml")
 
 dialogFlows.each {
     it.phrases.each {
-        println it.phraseBankId
+        println it.text
     }
 }
