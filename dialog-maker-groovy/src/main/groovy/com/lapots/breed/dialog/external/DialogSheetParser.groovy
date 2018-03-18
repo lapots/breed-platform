@@ -10,15 +10,13 @@ class DialogSheetParser {
 
     List<DialogFlow> parseFlowSheet(String sheetFile) {
         def dialogs = new XmlSlurper().parseText(readResource(sheetFile))
-        def dialogFlows = []
         // convert
-        dialogs.dialog.each { parseSingleDialogEntry(it, dialogFlows) }
-        dialogFlows
+        dialogs.dialog.collect { parseSingleDialogEntry(it) }
     }
 
-    def parseSingleDialogEntry(dialog, out) {
+    def parseSingleDialogEntry(dialog) {
+        def dialogFlow = new DialogFlow(dialogId: dialog.@id)
         dialog.flow.each { flow -> // one record
-            def dialogFlow = new DialogFlow(dialogId: dialog.@id)
             dialogFlow.phraseBankId = flow.@ref
             def bank = findByAttribute(dialog, "phrase-bank", "id", flow.@ref)
             dialogFlow.phrases = flow.children()
@@ -33,8 +31,7 @@ class DialogSheetParser {
                         language: xmlPhrase.@language
                 )
             } as List
-
-            out << dialogFlow
         }
+        dialogFlow
     }
 }
